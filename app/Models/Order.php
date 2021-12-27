@@ -10,8 +10,12 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name','email','phone','service_id','description',
+        'name','email','phone','service_id','description','status','note'
     ];
 
-    
+    public function service()
+    {
+        # code...
+        return $this->belongsTo(Service::class,'service_id','id');
+    }
 }

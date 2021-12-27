@@ -174,7 +174,7 @@
                                             <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
 
                                             <span class="ml-2">Logout </span>
-                                    
+
 
                                         </a>
                                     </form>
@@ -303,6 +303,40 @@
                             {{-- this element to view create services page --}}
                             <li><a href="{{ route('teams.create') }}">{{ __('Create Team Member') }}</a></li>
 
+                        </ul>
+                    </li>
+
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="la la-calendar"></i>
+                            <span class="nav-text">{{ __('Slider') }}</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            {{-- this element to view all services page --}}
+                            <li><a href="{{ route('sliders.index') }}">{{ __('All Sliders') }}</a></li>
+
+                            {{-- this element to view create services page --}}
+                            <li><a href="{{ route('sliders.create') }}">{{ __('Create Slider') }}</a></li>
+
+                        </ul>
+                    </li>
+
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="la la-calendar"></i>
+                            <span class="nav-text">{{ __('Orders') }}</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            {{-- this element to view all services page --}}
+                            <li><a href="{{ route('orders.index') }}">{{ __('All Orders') }}</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="la la-calendar"></i>
+                            <span class="nav-text">{{ __('Contacts') }}</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            {{-- this element to view all services page --}}
+                            <li><a href="{{ route('contacts.index') }}">{{ __('All Contacts') }}</a></li>
                         </ul>
                     </li>
 

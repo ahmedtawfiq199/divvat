@@ -2,11 +2,15 @@
 
 use App\Http\Controllers\ControlPanel\BlogController;
 use App\Http\Controllers\ControlPanel\ClientController;
+use App\Http\Controllers\ControlPanel\ContactController as ControlPanelContactController;
+use App\Http\Controllers\ControlPanel\DashboardController;
+use App\Http\Controllers\ControlPanel\OrderController as ControlPanelOrderController;
 use App\Http\Controllers\ControlPanel\PageController;
 use App\Http\Controllers\ControlPanel\ProjectController;
 use App\Http\Controllers\ControlPanel\SubServiceController;
 use App\Http\Controllers\ControlPanel\TeamController;
 use App\Http\Controllers\ControlPanel\UserController;
+use App\Http\Controllers\ControlPanel\SliderController;
 use App\Http\Controllers\ControlPanel\WebsitController;
 use App\Http\Controllers\Front\ContactController;
 use App\Http\Controllers\Front\OrderController;
@@ -40,9 +44,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth')
         ->prefix('control-panel')
         ->group(function () {
-            Route::get('/dashboard', function () {
-                return view('control-panel.dashboard');
-            })->name('dashboard');
+            Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
 
             Route::get('users', [UserController::class, 'index'])->name('all-users');
             Route::get('users/create', [UserController::class, 'create'])->name('create-users');
@@ -61,7 +63,11 @@ Route::middleware('auth')
             Route::resource('pages', PageController::class);
             Route::resource('blogs', BlogController::class);
             Route::resource('teams', TeamController::class);
-
+            Route::resource('orders', ControlPanelOrderController::class);
+            Route::get('contacts',[ControlPanelContactController::class,'index'])->name('contacts.index');
+            Route::get('contacts/{contact}',[ControlPanelContactController::class,'show'])->name('contacts.show');
+            Route::delete('contacts/{contact}',[ControlPanelContactController::class,'destroy'])->name('contacts.destroy');
+            Route::resource('sliders', SliderController::class);
         });
 
 

@@ -7,6 +7,7 @@ use App\Http\Requests\ContactRequest;
 use App\Models\Contact;
 use App\Models\User;
 use App\Models\Websit;
+use App\Notifications\NewContactNotification;
 use App\Notifications\NewOrderNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -31,6 +32,9 @@ class ContactController extends Controller
             $contact = Contact::create($request->validated());
 
             //User::where('id',1)->notify(new NewOrderNotification());
+            foreach(User::get() as $user){
+                $user->notify(new NewContactNotification($contact));
+            }
 
             DB::commit();
         }catch(Throwable $e){

@@ -7,68 +7,23 @@
         <!-- Slider -->
         <div class="flexslider js-fullheight">
             <ul class="slides">
-                <li style="background-image: url({{ asset('assets/front/images/slider/01.jpg') }});">
+                @foreach ($sliders as $slider)
+                <li style="background-image: url({{ asset('storage/'.$slider->image) }});">
                     <div class="overlay"></div>
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12 js-fullheight slider-text">
                                 <div class="slider-text-inner">
                                     <div class="desc">
-                                        <h1>Web Design</h1>
-                                    <h2>We are Digital & Creative Agency </h2>
+                                        <h1>{{ $slider->title }}</h1>
+                                        <h2>{{ $slider->sub_title }} </h2>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </li>
-                <li style="background-image: url({{ asset('assets/front/images/slider/02.jpg') }});">
-                    <div class="overlay"></div>
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-12 js-fullheight slider-text">
-                                <div class="slider-text-inner">
-                                    <div class="desc">
-                                        <h1>BRANDING DESING</h1>
-                                        <h2>We are Digital & Creative Agency </h2>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li style="background-image: url({{ asset('assets/front/images/slider/03.jpg') }});">
-                    <div class="overlay"></div>
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-12 js-fullheight slider-text">
-                                <div class="slider-text-inner">
-                                    <div class="desc">
-                                        <h1>Sochial Midea</h1>
-                                        <h2>We are Digital & Creative Agency </h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li style="background-image: url({{ asset('assets/front/images/slider/04.jpg') }});">
-                    <div class="overlay"></div>
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-12 js-fullheight slider-text">
-                                <div class="slider-text-inner">
-                                    <div class="desc">
-                                        <h1>Mobile App</h1>
-                                        <h2>We are Digital & Creative Agency </h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
+                @endforeach
             </ul>
         </div>
     </aside>

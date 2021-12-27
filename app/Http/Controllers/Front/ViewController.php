@@ -7,6 +7,7 @@ use App\Models\Blog;
 use App\Models\Page;
 use App\Models\Project;
 use App\Models\Service;
+use App\Models\Slider;
 use App\Models\Team;
 use App\Models\Websit;
 use Illuminate\Http\Request;
@@ -16,9 +17,11 @@ class ViewController extends Controller
     public function index()
     {
         $lastProjects = Project::latest()->paginate(3);
+        $sliders = Slider::paginate();
 
         return view('frontend.index',[
             'lastProjects' => $lastProjects,
+            'sliders' => $sliders,
         ]);
     }
 
@@ -74,6 +77,6 @@ class ViewController extends Controller
         ]);
     }
 
-   
+
 
 }

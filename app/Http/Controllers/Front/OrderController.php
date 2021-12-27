@@ -23,9 +23,7 @@ class OrderController extends Controller
             $order = Order::create($request->validated());
 
             //Notification Code
-
-
-            foreach(User::where('role','like','Administrator')->get() as $user){
+            foreach(User::get() as $user){
                 $user->notify(new NewOrderNotification($order));
             }
 
