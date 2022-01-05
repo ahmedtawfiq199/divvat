@@ -22,7 +22,7 @@
 					<div class="col-xl-12 col-xxl-12 col-sm-12">
                         <div class="card">
                             <div class="card-header">
-								<h5 class="card-title">Website Info</h5>
+								<h5 class="card-title">{{ __('Website Info') }}</h5>
 							</div>
 							<div class="card-body">
                                 {{-- alert tag --}}

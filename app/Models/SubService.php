@@ -17,4 +17,10 @@ class SubService extends Model
     {
         return $this->belongsTo(Service::class,'service_id','id');
     }
+
+    public function plans()
+    {
+        # code...
+        return $this->hasMany(Plan::class,'sub_service_id','id');
+    }
 }

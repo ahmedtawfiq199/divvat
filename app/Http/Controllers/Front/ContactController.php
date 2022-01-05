@@ -11,6 +11,7 @@ use App\Notifications\NewContactNotification;
 use App\Notifications\NewOrderNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Throwable;
 
 class ContactController extends Controller
@@ -35,6 +36,24 @@ class ContactController extends Controller
             foreach(User::get() as $user){
                 $user->notify(new NewContactNotification($contact));
             }
+
+            $mail_data = [
+                'recipient' => 'ahmer631998@gmail.com',
+                'fromEmail' => $contact->email,
+                'fromName' => $contact ->name,
+                'subject' => "New Contact",
+                'body' => $contact->message,
+                'contact' => $contact,
+                'greeting' => 'Hello,',
+                'actionText' => 'View Contact',
+                'actionUrl' => route('contacts.show',$contact->id)
+            ];
+
+            Mail::send('email-template',$mail_data,function($message) use ($mail_data){
+                $message->to($mail_data['recipient'])
+                        ->from($mail_data['fromEmail'],$mail_data['fromName'])
+                        ->subject($mail_data['subject']);
+            });
 
             DB::commit();
         }catch(Throwable $e){

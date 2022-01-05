@@ -6,6 +6,7 @@ use App\Http\Controllers\ControlPanel\ContactController as ControlPanelContactCo
 use App\Http\Controllers\ControlPanel\DashboardController;
 use App\Http\Controllers\ControlPanel\OrderController as ControlPanelOrderController;
 use App\Http\Controllers\ControlPanel\PageController;
+use App\Http\Controllers\ControlPanel\PlanController;
 use App\Http\Controllers\ControlPanel\ProjectController;
 use App\Http\Controllers\ControlPanel\SubServiceController;
 use App\Http\Controllers\ControlPanel\TeamController;
@@ -68,6 +69,13 @@ Route::middleware('auth')
             Route::get('contacts/{contact}',[ControlPanelContactController::class,'show'])->name('contacts.show');
             Route::delete('contacts/{contact}',[ControlPanelContactController::class,'destroy'])->name('contacts.destroy');
             Route::resource('sliders', SliderController::class);
+
+            Route::get('plans/{service}',[PlanController::class,'show'])->name('plans.show');
+            Route::get('plans/create/{service}',[PlanController::class,'create'])->name('plans.create');
+            Route::post('plans/create',[PlanController::class,'store'])->name('plans.store');
+            Route::get('plans/{plan}/edit',[PlanController::class,'edit'])->name('plans.edit');
+            Route::put('plans/{plan}/edit',[PlanController::class,'update'])->name('plans.update');
+            Route::delete('plans/{plan}',[PlanController::class,'destroy'])->name('plans.destroy');
         });
 
 

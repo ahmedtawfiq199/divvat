@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{ asset('assets/front/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/front/css/flexslider.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/front/css/style.css') }}">
+
     <!-- FOR IE9 below -->
     <!--[if lt IE 9]>
         <script src="js/respond.min.js"></script>
@@ -94,20 +95,23 @@
                         <h5 class="modal-title" id="exampleModalLabel">{{ __('Contact Us') }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form id="orderForm" method="POST">
+                    <form id="orderForm1" enctype="multipart/form-data">
                         @csrf
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label for="name" class="col-form-label">{{ __('Name') }}</label>
                                 <input type="text" class="form-control" name="name" id="name">
+                                <div id="order_nameError" class="form-text text-danger"></div>
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="col-form-label">{{ __('Email Address') }}</label>
                                 <input type="text" class="form-control" name="email" id="email">
+                                <div id="order_emailError" class="form-text text-danger"></div>
                             </div>
                             <div class="mb-3">
                                 <label for="phone" class="col-form-label">{{ __('Phone Number') }}</label>
                                 <input type="text" class="form-control" name="phone" id="phone">
+                                <p id="order_phoneError" class="form-text text-danger"></p>
                             </div>
                             <div class="mb-3">
                                 <label for="service_id" class="col-form-label">{{ __('Service') }}</label>
@@ -117,13 +121,20 @@
                                         $service->id }}">{{ $service->name }}</option>
                                     @endforeach
                                 </select>
+                                <small id="order_service_idError" class="form-text text-danger"></small>
                             </div>
-
 
                             <div class="mb-3">
                                 <label for="description" class="col-form-label">{{ __('Message') }}</label>
                                 <textarea class="form-control" name="description" id="description"></textarea>
+                                <p id="order_descriptionError" class="form-text text-danger"></p>
                             </div>
+
+                            <div class="mb-3">
+                                {!! NoCaptcha::display() !!}
+                                <p id="order_g-recaptcha-responseError" class="form-text text-danger"></p>
+                            </div>
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" id="closeModel" data-bs-dismiss="modal">Close</button>
@@ -151,31 +162,7 @@
         </div>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"
             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-        <script>
-            $('#orderForm').submit(function(e){
-                e.preventDefault();
-                //console.log('done!');
-                //var formData = new FormData($('#orderForm')[0]);
-                $.ajax({
-                    type:'post',
-                    url: '{{route('view.new.order')}}',
-                    data: {
-                    '_token': $("input[name='_token']").val(),
-                    'name': $("#name").val(),
-                    'email': $("#email").val(),
-                    'phone': $("input[name='phone']").val(),
-                    'service_id': $("select[name='service_id']").val(),
-                    'description': $("#description").val(),
-                    },
-                    success: function(data){
-                        if(data.status){
-                            $("#closeModel").click();
-                            $("#alertModal").modal("show");
-                        }
-                    }
-                });
-            });
-        </script>
+
         <!-- Js -->
 
         <script src="{{ asset('assets/front/js/jquery.min.js') }}"></script>
@@ -195,6 +182,44 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
             integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous">
         </script>
+        <script>
+            $('#orderForm1').submit(function(e){
+                e.preventDefault();
+                //console.log('done!');
+                //var formData = new FormData($(this)[0]);
+                $("#order_nameError").text("");
+                $("#order_emailError").text("");
+                $("#order_phoneError").text("");
+                $("#order_service_idError").text("");
+                $("#order_descriptionError").text("");
+                $("#order_g-recaptcha-responseError").text("");
+                $.ajax({
+                    type:'post',
+                    url: '{{route('view.new.order')}}',
+                    dataType: 'json',
+                    data: $(this).serialize(),
+                    cache : false,
+                    processData: false,
+                    success: function(data){
+                        if(data.status){
+                            $("#closeModel").click();
+                            $("#alertModal").modal("show");
+                        }
+                    },
+                    error: function (response) {
+                        
+                        $.each(response.responseJSON.errors, function (key, val) {
+                            console.log(key +":{"+val+"}");
+                           // console.log($('#order_service_idError').val());
+                            $('#order_'+key+'Error').text(val[0]);
+                        });
+                        
+                    },
+
+                });
+            });
+        </script>
+         {!! NoCaptcha::renderJs() !!}
     </div>
 </body>
 

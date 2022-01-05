@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreOrderRequest extends FormRequest
+class StorePlaneRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,11 +25,12 @@ class StoreOrderRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'email' => 'email|required',
-            'phone' => 'numeric|required',
-            'service_id' => 'required|exists:services,id',
-            'descripyion' => 'nullable|string',
-            'g-recaptcha-response' => 'required|captcha'
+            'price' => 'required|numeric',
+            'sub_service_id' => "required|exists:sub_services,id",
+            'type' => 'required',
+            'during' => 'required',
+            'featureName.*' => 'required',
+            'featureValue.*' => 'required'
         ];
     }
 }

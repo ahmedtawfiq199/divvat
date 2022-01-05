@@ -74,7 +74,7 @@
                         {{-- service description --}}
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <div class="form-group fallback w-100">
-                                <label for="description" class="form-label">{{ __('Service Description') }}</label>
+                                <label for="description" class="form-label">{{ __('Description') }}</label>
                                 <textarea name="description" id="description" class="form-control" rows="4">{{ old('description',$slider->description) }}</textarea>
                             </div>
                         </div>

@@ -84,98 +84,40 @@
                                 </span>
                                 <div class="dropdown-menu p-0 m-0">
                                     <form>
-                                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                                        <input class="form-control" type="search" placeholder="{{ __('Search') }}" aria-label="Search">
                                     </form>
                                 </div>
                             </div>
                         </div>
 
                         <ul class="navbar-nav header-right">
-                            <li class="nav-item dropdown notification_dropdown">
+                            <li class="nav-item dropdown">
                                 <a class="nav-link bell ai-icon" href="#" role="button" data-toggle="dropdown">
-                                    <svg id="icon-user" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell">
-										<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-										<path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-									</svg>
-                                    <div class="pulse-css"></div>
+                                    <i class="fa fa-language"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <ul class="list-unstyled">
-                                        <li class="media dropdown-item">
-                                            <span class="success"><i class="ti-user"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p><strong>Martin</strong> has added a <strong>customer</strong> Successfully
-                                                    </p>
+                                    <ul class="">
+                                        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                            <li style="padding: 0.25rem 1.5rem;">
+                                                <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                                    {{ $properties['native'] }}
                                                 </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                        <li class="media dropdown-item">
-                                            <span class="primary"><i class="ti-shopping-cart"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p><strong>Jennifer</strong> purchased Light Dashboard 2.0.</p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                        <li class="media dropdown-item">
-                                            <span class="danger"><i class="ti-bookmark"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p><strong>Robin</strong> marked a <strong>ticket</strong> as unsolved.
-                                                    </p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                        <li class="media dropdown-item">
-                                            <span class="primary"><i class="ti-heart"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p><strong>David</strong> purchased Light Dashboard 1.0.</p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                        <li class="media dropdown-item">
-                                            <span class="success"><i class="ti-image"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p><strong> James.</strong> has added a<strong>customer</strong> Successfully
-                                                    </p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
+                                            </li>
+                                        @endforeach
                                     </ul>
-                                    <a class="all-notification" href="#">See all notifications <i
-                                            class="ti-arrow-right"></i></a>
                                 </div>
                             </li>
                             <li class="nav-item dropdown header-profile">
-                                <a class="nav-link" href="#" role="button" data-toggle="dropdown">
-                                    <img src="images/profile/education/pic1.jpg" width="20" alt=""/>
+                                <a class="nav-link bell ai-icon" href="#" role="button" data-toggle="dropdown">
+                                    <i class="fa fa-user"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a href="app-profile.html" class="dropdown-item ai-icon">
-                                        <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                                        <span class="ml-2">Profile </span>
-                                    </a>
-                                    <a href="email-inbox.html" class="dropdown-item ai-icon">
-                                        <svg id="icon-inbox" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                                        <span class="ml-2">Inbox </span>
-                                    </a>
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
                                         <a href="{{ route('logout') }}"  onclick="event.preventDefault();
-                                        this.closest('form').submit();" class="dropdown-item ai-icon">
+                                            this.closest('form').submit();" class="dropdown-item ai-icon">
                                             <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-
-                                            <span class="ml-2">Logout </span>
-
-
+                                            <span class="ml-2">{{ __('Logout') }} </span>
                                         </a>
                                     </form>
                                 </div>
@@ -195,7 +137,7 @@
         <div class="dlabnav">
             <div class="dlabnav-scroll">
                 <ul class="metismenu" id="menu">
-                    <li class="nav-label first">Main Menu</li>
+                    <li class="nav-label first">{{ __('Main Menu') }}</li>
 
                     {{-- this element to view dashboard page --}}
                     <li><a class="ai-icon" href="{{ route('dashboard') }}" aria-expanded="false">
@@ -203,7 +145,6 @@
 							<span class="nav-text">{{ __('Dashboard') }}</span>
 						</a>
                     </li>
-
 
 					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
 							<i class="la la-users"></i>
@@ -221,7 +162,7 @@
 
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="la la-user"></i>
-                            <span class="nav-text">{{ __('Client') }}</span>
+                            <span class="nav-text">{{ __('Clients') }}</span>
                         </a>
                         <ul aria-expanded="false">
                             {{-- this element to view all clients page --}}
@@ -259,13 +200,27 @@
                             <li><a href="{{ route('projects.index') }}">{{ __('All Projects') }}</a></li>
 
                             {{-- this element to view create services page --}}
-                            <li><a href="{{ route('projects.create') }}">{{ __('Create Projects') }}</a></li>
+                            <li><a href="{{ route('projects.create') }}">{{ __('Create Project') }}</a></li>
 
                         </ul>
                     </li>
 
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                   @if($hosting = App\Models\Service::where('name','LIKE','Hosting')->first())
+                   <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="la la-calendar"></i>
+                            <span class="nav-text">{{ __('Hosting') }}</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            @foreach ($hosting->subServices as $sub_host)
+                                {{-- this element to view all services page --}}
+                                <li><a href="{{ route('plans.show',$sub_host->id) }}">{{ $sub_host->name }}</a></li>
+                            @endforeach
+                        </ul>
+                    </li>
+                   @endif
+
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="fa fa-pagelines"></i>
                             <span class="nav-text">{{ __('Pages') }}</span>
                         </a>
                         <ul aria-expanded="false">
@@ -273,7 +228,7 @@
                             <li><a href="{{ route('pages.index') }}">{{ __('All Pages') }}</a></li>
 
                             {{-- this element to view create services page --}}
-                            <li><a href="{{ route('pages.create') }}">{{ __('Create Pages') }}</a></li>
+                            <li><a href="{{ route('pages.create') }}">{{ __('Create Page') }}</a></li>
 
                         </ul>
                     </li>
@@ -293,7 +248,7 @@
                     </li>
 
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="la la-calendar"></i>
+                            <i class="fa fa-steam-square"></i>
                             <span class="nav-text">{{ __('Team') }}</span>
                         </a>
                         <ul aria-expanded="false">
@@ -307,7 +262,7 @@
                     </li>
 
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="la la-calendar"></i>
+                            <i class="fa fa-sliders"></i>
                             <span class="nav-text">{{ __('Slider') }}</span>
                         </a>
                         <ul aria-expanded="false">
@@ -321,7 +276,7 @@
                     </li>
 
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="la la-calendar"></i>
+                            <i class="fa fa-reorder"></i>
                             <span class="nav-text">{{ __('Orders') }}</span>
                         </a>
                         <ul aria-expanded="false">
@@ -331,7 +286,7 @@
                     </li>
 
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="la la-calendar"></i>
+                            <i class="fa fa-phone"></i>
                             <span class="nav-text">{{ __('Contacts') }}</span>
                         </a>
                         <ul aria-expanded="false">
@@ -341,7 +296,7 @@
                     </li>
 
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                        <i class="la la-calendar"></i>
+                        <i class="fa fa-cog"></i>
                         <span class="nav-text">{{ __('Setting') }}</span>
                     </a>
                     <ul aria-expanded="false">
@@ -376,7 +331,7 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="http://dexignlab.com/" target="_blank">DexignLab</a> 2020</p>
+                <p class="doro-lead">&copy; {{ __('2021 Divvat. All rights reserved') }}</p>
             </div>
         </div>
         <!--**********************************

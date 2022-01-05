@@ -87,7 +87,6 @@
                             <tr>
                                 <th scope="col">{{ __('Name') }}</th>
                                 <th scope="col">{{ __('Email') }}</th>
-                                <th scope="col">{{ __('Message') }}</th>
                                 <th scope="col">{{ __('Date') }}</th>
                             </tr>
                         </thead>
@@ -96,7 +95,6 @@
                                 <tr>
                                     <th><a href="{{ route('contacts.show',$contact->id) }}">{{ $contact->name }}</a></th>
                                     <td>{{ $contact->email }}</td>
-                                    <td>{{ $contact->message }}</td>
                                     <td>{{ Carbon\Carbon::parse($contact->created_at)->format('y-m-d') }}</td>
                                 </tr>
                             @endforeach

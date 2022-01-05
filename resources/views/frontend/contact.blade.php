@@ -47,6 +47,9 @@
                             </div>
                         </div>
                         <div class="col-sm-12">
+                            {!! NoCaptcha::display() !!}
+                        </div>
+                        <div class="col-sm-12">
                             <div class="form-group">
                                 <input type="submit" class="btn btn-contact" value="Say Hello!"> </div>
                         </div>
